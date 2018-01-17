@@ -1,21 +1,22 @@
 {
-  "name" : "Cro::HTTP::Session::Redis",
-  "source-url" : "https://github.com/croservices/cro-http-session-redis.git",
-  "support" : {
-    "source" : null
-  },
-  "perl" : "6.*",
-  "license" : "Artistic-2.0",
-  "test-depends" : [
-    "Test::META"
-  ],
-  "provides" : {
-    "Cro::HTTP::Session::Redis" : "lib/Cro/HTTP/Session/Redis.pm6"
-  },
-  "version" : "0.7.2",
-  "meta-version" : "0",
-  "authors" : [
-    "Altai-man"
-  ],
-  "description" : "blah blah blah"
+    "name" : "Cro::HTTP::Session::Redis",
+    "source-url" : "https://github.com/croservices/cro-http-session-redis.git",
+    "support" : {
+        "source" : null
+    },
+    "perl" : "6.*",
+    "license" : "Artistic-2.0",
+    "test-depends" : [
+        "Test::META"
+    ],
+    "depends": [ "Cro::HTTP" ],
+    "provides" : {
+        "Cro::HTTP::Session::Redis" : "lib/Cro/HTTP/Session/Redis.pm6"
+    },
+    "version" : "0.7.2",
+    "meta-version" : "0",
+    "authors" : [
+        "Altai-man"
+    ],
+    "description" : "blah blah blah"
 }
