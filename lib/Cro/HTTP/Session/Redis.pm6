@@ -34,7 +34,6 @@ role Cro::HTTP::Session::Redis[::TSession] does Cro::HTTP::Session::Persistent[:
         }
         CATCH {
             default {
-                say "Wow!";
                 fail($!);
             }
         }
