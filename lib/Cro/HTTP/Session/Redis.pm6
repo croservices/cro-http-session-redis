@@ -1,9 +1,45 @@
-use v6;
-#`(
+use Cro::HTTP::Session::IdGenerator;
+use Cro::HTTP::Session::Persistent;
+use Redis::Async;
 
-)
+role Cro::HTTP::Session::Redis[::TSession] does Cro::HTTP::Session::Persistent[::TSession] {
+    has $.redis-host = 'localhost';
+    has $.redis-port = 6379;
+    has $!redis;
 
-unit class Cro::HTTP::Session::Redis;
+    method load(Str $session-id) {
+        self.deserialize(self!execute(-> { $!redis.get($session-id, :bin) }));
+    }
+
+    method save(Str $session-id, TSession $session --> Nil) {
+        my $blob = self.serialize($session);
+        self!execute(-> {
+                            $!redis.set($session-id, $blob);
+                            $!redis.expireat($session-id, now + self.expiration);
+                        });
+    }
+
+    method clear(--> Nil) {}
+
+    method serialize(TSession $s --> Blob) { ... }
+    method deserialize(Blob $b --> TSession) { ... }
+
+    method !execute(&command) {
+        $!redis //= Redis::Async.new("{$!redis-host}:{$!redis-port}");
+        try {
+            # We ping server every time to be sure that handle is alive
+            $!redis.ping;
+            my $executed = &command();
+            return $executed;
+        }
+        CATCH {
+            default {
+                say "Wow!";
+                fail($!);
+            }
+        }
+    }
+}
 
 
 =begin pod

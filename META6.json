@@ -9,7 +9,7 @@
     "test-depends" : [
         "Test::META"
     ],
-    "depends": [ "Cro::HTTP" ],
+    "depends": [ "Cro::HTTP", "Redis::Async" ],
     "provides" : {
         "Cro::HTTP::Session::Redis" : "lib/Cro/HTTP/Session/Redis.pm6"
     },
