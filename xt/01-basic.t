@@ -48,7 +48,7 @@ given Cro::HTTP::Client.new -> $client {
 }
 
 given Cro::HTTP::Client.new(:cookie-jar) -> $client {
-    for 1..2 -> $i {
+    for 1..5 -> $i {
         given await $client.get("$url/hits") {
             is await(.body-text), "Visit $i",
                 "Session cookie being sent makes state work (request $i)";
